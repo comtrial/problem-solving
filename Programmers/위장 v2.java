@@ -13,7 +13,7 @@ class Solution4 {
         // 2. 갯수에 대해 하나도 입지 않은 경우 까지 포함해서 사용해야 함
         for (String[] clothe : clothes) {
             String type = clothe[1];
-            map.put(type, map.getOrDefault(type, 0) + 1);
+            map.put(type, map.getOrDefault(type, 0) + 1); // map.getOrDefault
         }
 
         int answer = 1;
