@@ -1,37 +1,59 @@
 package Programmers;
 
+import java.util.Arrays;
+
 // https://school.programmers.co.kr/learn/courses/30/lessons/42839
 class Solution {
-    public int solution(String numbers) {
+    static int answer;
+    static String[] nodeArr;
+    static boolean[] visit;
+
+    public void solution(String numbers) {
         // - 소수 판별: 에라토스체
-
-
         //  1. 들어 온 문자열에 대해서 다 스플릿
         int answer = 0;
-        String[] splitNumbers = numbers.split("");
+        nodeArr = numbers.split("");
+        visit = new boolean[nodeArr.length];
+        // 2. 스플릿된 모든 문자열의 조합 만들기
+        //      if 0 으로 시작하면 안대j
+//        for (int i=0; i<nodeArr.length; i++)
+        dfs(0, 0, "");
+    }
 
-        //  2. split 된 숫자들로 조합 만들어
-        String[] combs;
-        //  3. 모든 조합에 대한 소수 여부 판별
-        //  4. 소수: 자기 자신과 1 이외에 나뉘지 않는 수
-        // 4. 소수인 경우 answer ++
+    private void dfs(int depth, int index, String comb) {
 
+        // 기본 실행
+        if (comb != ""){
+            if (isPrime(Integer.parseInt(comb))) this.answer += 1;
+        }
+        System.out.println(comb);
 
-        System.out.println(splitNumbers.length);
+        // 종료 좋건
+//        if (!Arrays.asList(visit).contains(false)) return;
+        if (depth == nodeArr.length) return;
 
-        return answer;
+        // 기본 실행 재귀
+        for (int i = 0; i < nodeArr.length; i++) {
+            if (!visit[i]) {
+                visit[i] = true;
+                comb += nodeArr[i];
+                dfs(depth+1, i, comb);
+                visit[i] = false;
+                }
+        }
     }
 
     public boolean isPrime(int n) {
         for (int i = 2; i <= (int) Math.sqrt(n); i++)
-            if (n % i == 0) return true;
+            if (n % i == 0) return false;
 
-        return false;
+        return true;
     }
 
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.solution("177"));
+        sol.solution("17"); //3
+        System.out.println("ssss" + answer);
     }
 }
